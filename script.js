@@ -1,3 +1,7 @@
+// Get references to the #generate element
+var generateBtn = document.querySelector("#generate");
+// variables for password 
+var enter = window.prompt("")
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
@@ -49,10 +53,6 @@ if (confirmNumericCharacter) {
   passwordText.value = password;
 
 }
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
-// variables for password 
-var enter = window.prompt("")
 
 
 

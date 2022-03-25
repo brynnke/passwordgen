@@ -1,86 +1,60 @@
-//Steps
-// 1. declare
-// 2. give a name for reference
-// 3. Make it equal to a Datatype value
-var enter;
-var confirmNumber;
-var confirmCharacter;
-var confirmUppercase;
-var confirmLowercase;
-var password = "word contatining";
-var word = document.getElementById
-var generatePassword = (characterAmount, includeUppercase, includeNumber, includeSymbol)
-// Special Characters
-character= ["!" , "#" , "$" , "@" , "%" ];
-// Numeric character
-number = [1,2,3,4,5,6,7,8,,9];
-// Alphabetical characters
-alpha = ["a", "b", "c", "d", "e", "f", "g" , "h", "i", "j", "k", "l", "m", "n","o", "p", "q", "r", "s", "t", "u", "v", "w", "x","y", "z"];
-
-// Space is for the uppercase
-space = [];
-
-// choices delcared outside if statement
-var choices;
-
-// Assignment code here
-
-//wrong info function
-window.alert("your password must have a @ and a upercase letter")
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
-
-const LOWERCASE_CHar_Codes
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-function generatePassword () {
-  // Ask for input
-  enter = window.alert(prompt("How many characters do you want in your password? Choose from " ))
-}
-if (!enter){
-  alert("This needs a value");
-} else if (enter <8 || enter > 12 ){
-  // validate input
-  // start input prompts
-  enter = parseInt(prompt("Choose between 8 and 12"));
-
-} else {
-  // continue once input is validated
-  confirmNumber = confirm("Will this contain numbers?");
-  confirmCharacter = confirm("Will this contain special characters?");
-  confirmUppercase = confirm("Will this contain Uppercase letters?");
-  confirmLowercase = confirm("Will this contain Lowercase letters?");
-   
-};
-// Else if for negative options
-if (!confirmCharacter && !confirmNumber && !confirmUppercase && !confirmLowercase) {
-      choices = alert("You must choose a criteria!");
-}
-else if (confirmCharacter && confirmNumber && confirmUppercase) {
-  choices = character.concat(number, )
-}
-
-  passwordText.value = password;
-  writePassword
-
-}
-
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-element.addEventListener("click", generatePassword);
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+
+  // various
+  var number =  [1,2,3,4,5,6,7,8,,9];
+  var specialChar = ["!" , "@" ,"#" , "$" , "%" , "^" , "/" ,"?"];
+  var alphaLower = ["a", "b", "c", "d", "e", "f", "g" , "h", "i", "j", "k", "l", "m", "n","o", "p", "q", "r", "s", "t", "u", "v", "w", "x","y", "z"];
+  var alphaUpper = ["A" ,"B" ,"C" ,"D" ,"E" ,"F" ,"G" ,"H" ,"I" ,"J" ,"K" ,"L" ,"M" ,"N" ,"O" ,"P" ,"Q" ,"R" ,"S" ,"T" ,"U" ,"V" ,"W" ,"X" ,"Y" ,"Z"];
+
+  // declerations
+  var confirmLength = "";
+  var confirmNumericCharacter;
+  var confirmSpecialChar;
+  var confirmUppercase;
+  var confirmLowercase;
+
+// prompt to confrim how many characters for password
+function writePassword() {
+  var confirmLength = (prompt("How many character would you like to have in your password?"));
+
+  // Loop if answer is outside the parameters
+  while(confirmLength <= 8 || confirmLength >128){
+    alert("Password lenght must be between 8-128 characters Try agian");
+    var confirmLength = (prompt("How many character would you like your password to have in your password?"));
+  }
+  // tell user how mnay characters the password will have 
+  alert ('Your password will have ${confrimLength} characters');
+
+  // permaters of password
+  var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric values");
+  var confirmSpecialChar = confirm("Clike OK to confirm if you would like to include special characters");
+  var confirmUppercase = confirm("Click OK to confirm if you would like to include uppercase letters");
+  var confirmLowercase = confirm("Click OK to confirm if you would like to include lowercase letters in your password");
+    // Loop if outside parameters
+    while(confirmNumericCharacter === false && confirmSpecialChar === false && confirmUppercase === false && confirmLowercase === false ){
+      alert("Must chose at lease one parameter");
+      var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric values");
+      var confirmSpecialChar = confirm("Click OK to confirm if you would like to include special characters");
+      var confirmUppercase = confirm("Click OK to confirm if you would like to inlcude uppercase letters");
+      var confirmLowercase = confirm("Click OK to confirm if you would like to include lowercase letters");
+    }
+
+if (confirmNumericCharacter) {
+  passwordNumbers= 
+}
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  var generatePassword = (characterAmount, includeUpercase, includeNumber, includeSymbol)
+  passwordText.value = password;
+
+}
+// Get references to the #generate element
+var generateBtn = document.querySelector("#generate");
+// variables for password 
+var enter = window.prompt("")
+
+
+
+
+

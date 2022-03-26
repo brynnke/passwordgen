@@ -2,82 +2,86 @@
 var generateBtn = document.querySelector("#generate");
 
   // various character choices
-  var numbers =  [1,2,3,4,5,6,7,8,,9];
-  var special = ["!" , "@" ,"#" , "$" , "%" , "^" , "/" ,"?"];
-  var alphaLower = ["a", "b", "c", "d", "e", "f", "g" , "h", "i", "j", "k", "l", "m", "n","o", "p", "q", "r", "s", "t", "u", "v", "w", "x","y", "z"];
-  var alphaUpper = ["A" ,"B" ,"C" ,"D" ,"E" ,"F" ,"G" ,"H" ,"I" ,"J" ,"K" ,"L" ,"M" ,"N" ,"O" ,"P" ,"Q" ,"R" ,"S" ,"T" ,"U" ,"V" ,"W" ,"X" ,"Y" ,"Z"];
-  
-  // declerations
-  var confirmLength = "";
-  var confirmNumericCharacter;
-  var confirmSpecialChar;
-  var confirmUppercase;
-  var confirmLowercase;
+  var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  var alphaUpper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  var alphaLower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  var special = ['@', '%', '+', '/', "'", '!', '#', '$', '^', '?', ':', ',', ')', '(', '}', '{', ']', '[', '~', '-', '_', '.'
+  ];
 
-  // prompt to confirm how many characters the user would like in password
-  function generatePassword() {
-    var confirmLength = (prompt("How many characters would you like in your password?"));
-   // Loop if answer is outside the parameters
-  while(confirmLength <= 8 || confirmLength >128){
-    alert("Password length must be between 8-128 characters Try agian");
-    var confirmLength = (prompt("How many character would you like your password to have?"));
+  // function to prompt the questions for users
+  function questions(){
+    var isValid = false;
+    do {
+      var length = prompt("Choose length of password between 8 and 128");
+      var asknumbers = confirm("Would you like numbers in your password?");
+      var askLowercase = confirm ("Would you like lower case letters in your password?");
+      var askspecial = confirm("Would you like special characters in your password?");
+      var askUppercase = confirm("Would you like uppercase letters in your password?");
+
+      var responses = {
+        length: length,
+        asknumbers: asknumbers,
+        askLowercase: askLowercase,
+        askUppercase: askUppercase,
+        askspecial: askspecial,
+      }
+      if ((length <8) || (length > 128))
+      alert("Choose a number between 8 and 128");
+      else if((!asknumbers)&&(!askLowercase)&&(!askspecial)&&(!askspecial))
+      alert("Must choose at least one");
+      else
+      isValid = true;
+
+    } 
+    while(!isValid);
+    return responses;
   }
-  // tell user how mnay characters the password will have 
-  alert ('Your password will have ${confirmLength} characters');
-  // permaters of password
-  var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric values");
-  var confirmSpecialChar = confirm("Clike OK to confirm if you would like to include special characters");
-  var confirmUppercase = confirm("Click OK to confirm if you would like to include uppercase letters");
-  var confirmLowercase = confirm("Click OK to confirm if you would like to include lowercase letters in your password");
-    // Loop if outside parameters
-    while(confirmNumericCharacter === false && confirmSpecialChar === false && confirmUppercase === false && confirmLowercase === false ){
-      alert("Must chose at lease one parameter");
-      var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric values");
-      var confirmSpecialChar = confirm("Click OK to confirm if you would like to include special characters");
-      var confirmUppercase = confirm("Click OK to confirm if you would like to inlcude uppercase letters");
-      var confirmLowercase = confirm("Click OK to confirm if you would like to include lowercase letters");
+  // Function to connect answers to generate a strong password.
+  function generatePassword() {
+    var passwordOptions = questions();
+    var possibleCombo = [];
+    var finalpassword = "";
+
+    if (passwordOptions.asknumbers) {
+      for (var i of numbers)
+        possibleCombo.push(i);
     }
 
+    if (passwordOptions.askLowercase) {
+      for (var i of alphaLower)
+        possibleCombo.push(i);
+    }
 
-  var passwordCharacters = [numbers, special, alphaLower, alphaUpper]
+    if (passwordOptions.askspecial) {
+      for (var i of special)
+        possibleCombo.push(i);
+    }
 
-  if (confirmNumericCharacter) {
-    passwordCharacters = passwordCharacters.concat(special)
-  }
-  if (confirmSpecialChar) {
-    passwordCharacters = passwordCharacters.concat(special)
-  }
-  if (confirmUppercase) {
-    passwordCharacters = passwordCharacters.concat(alphaUpper)
-  }
-  if (confirmLowercase) {
-    passwordCharacters = passwordCharacters.concat(alphaLower)
-  }
-  console.log(passwordCharacters)
+    if (passwordOptions.askUppercase) {
+      for (var i of alphaUpper)
+        possibleCombo.push(i);
+    }
 
-  var randomPassword = [numbers, special, alphaUpper, alphaLower]
+    console.log(possibleCombo);
 
-  for (var i = 0; i < confirmLength; i++) {
-    randomPassword= randomPassword + passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)];
-    console.log(randomPassword)
-   
+    for (var i = 0; i < passwordOptions.length; i++) {
+        finalpassword += possibleCombo[Math.floor(Math.random() * possibleCombo.length)];
+
+    }
+    console.log(finalpassword);
+
+    return finalpassword;
   }
-   return randomPassword;
- 
+  // write password to the #password input
+  function writePassword() {
+    var password = generatePassword ();
+    var passwordText = document.querySelector("#password");
+
+    passwordText.value = password;
   }
-
-
   
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
-}
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
 
